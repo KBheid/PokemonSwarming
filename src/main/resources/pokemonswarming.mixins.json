@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "thingxII.pokemonswarming.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "pokemonswarming.refmap.json",
+  "mixins": [
+    "Patch_WeatherAccessor"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
