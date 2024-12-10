@@ -52,6 +52,14 @@ public class SwarmCoordinator {
 	public boolean GetCurrentSwarmIgnoresWeather() { return currentSwarm.ignoringWeather; }
 
 	public void CreateSwarm() {
+		// Coordinator is not present or inactive, just retry at a later time
+		if (PixelmonSpawning.coordinator == null || !PixelmonSpawning.coordinator.getActive()) {
+			currentSwarmSet = null;
+			currentSwarmString = "Currently none.";
+			ticksRemaining = RETRY_TICKS;
+			return;
+		}
+
 		// Remove old if necessary
 		if (currentSwarmSet != null) {
 			PixelmonSpawning.standard.remove(currentSwarmSet);
@@ -180,7 +188,11 @@ public class SwarmCoordinator {
 			clonedSpawnInfo.rarity 						= sip.rarity * (float) Config.rarityMultiplier;
 			clonedSpawnInfo.spawnSpecificPokerusRate 	= (sip.spawnSpecificPokerusRate == null) ? (float) Config.pokerusDefault : sip.spawnSpecificPokerusRate / (float) Config.pokerusMultiplier;
 			clonedSpawnInfo.spawnSpecificShinyRate 		= (sip.spawnSpecificShinyRate == null)   ? (float) Config.shinyDefault   : sip.spawnSpecificShinyRate   / (float) Config.shinyMultiplier;
-			clonedSpawnInfo.percentage 					= (float) Config.spawnPercentage;
+
+			// Using the percentage will overwrite rarity changes
+			if (Config.usePercentage) {
+				clonedSpawnInfo.percentage = (float) Config.spawnPercentage;
+			}
 
 			ignoringTime = r.nextFloat() < Config.chanceToIgnoreTime;
 			ignoringWeather = r.nextFloat() < Config.chanceToIgnoreWeather;

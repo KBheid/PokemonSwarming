@@ -22,6 +22,7 @@ public class Config {
 	private static final ForgeConfigSpec.DoubleValue SHINY_MULTIPLIER;
 	private static final ForgeConfigSpec.DoubleValue SHINY_DEFAULT;
 
+	private static final ForgeConfigSpec.BooleanValue USE_PERCENTAGE;
 	private static final ForgeConfigSpec.DoubleValue SPAWN_PERCENTAGE;
 
 	private static final ForgeConfigSpec.DoubleValue CHANCE_TO_IGNORE_TIME;
@@ -56,6 +57,9 @@ public class Config {
 				.comment("The amount to set Shiny rate to, assuming that the Pokemon does not have a specific Shiny rate. 1/shinyDefault will be Shiny.")
 				.defineInRange("shinyDefault", 250f, 0, Double.MAX_VALUE);
 
+		USE_PERCENTAGE = BUILDER
+				.comment("If true, spawnPercentage will be used instead of the rarityMultiplier.")
+				.define("usePercentage", false);
 		SPAWN_PERCENTAGE = BUILDER
 				.comment("The percent chance to overwrite any other spawn in valid locations. E.g. if set to 10, 10% Pokemon will be the swarming Pokemon, and 9/10 will be normal spawns (including swarming Pokemon with the multipliers above).")
 				.defineInRange("spawnPercentage", 10f, 0, 99.9f);
@@ -98,6 +102,7 @@ public class Config {
 	public static double shinyMultiplier;
 	public static double shinyDefault;
 
+	public static boolean usePercentage;
 	public static double spawnPercentage;
 
 	public static double chanceToIgnoreTime;
@@ -117,6 +122,7 @@ public class Config {
 		pokerusDefault = POKERUS_DEFAULT.get();
 		shinyMultiplier = SHINY_MULTIPLIER.get();
 		shinyDefault = SHINY_DEFAULT.get();
+		usePercentage = USE_PERCENTAGE.get();
 		spawnPercentage = SPAWN_PERCENTAGE.get();
 		chanceToIgnoreTime = CHANCE_TO_IGNORE_TIME.get();
 		chanceToIgnoreWeather = CHANCE_TO_IGNORE_WEATHER.get();
